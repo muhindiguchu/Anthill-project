@@ -19,7 +19,7 @@ document.getElementById("register").onclick = function () {
       var userid = usercredential.user.uid;
       firebase
         .firestore()
-        .collection("users")
+        .collection("service")
         .doc(userid)
         .set({
           useremail: email,
