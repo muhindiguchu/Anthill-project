@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <style>
+      body {
+        min-height: 100vh;
+      }
+      .sidebar {
+        min-height: 100vh;
+        background: #f8f9fa;
+        border-right: 1px solid #dee2e6;
+      }
+      .profile-pic {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 1rem auto;
+        display: block;
+      }
+      .status-btn {
+        width: 100%;
+      }
+      .chat-icon {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1050;
+        background: #0d6efd;
+        color: #fff;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+      }
+      .chat-icon:hover {
+        background: #0b5ed7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar p-0">
+          <div class="text-center py-4">
+            <img
+              src="/images/sitter.jpg"
+              alt="Profile"
+              class="profile-pic"
+              id="profilePic"
+            />
+            <h5 class="mt-2">John Doe</h5>
+            <div
+              class="form-check form-switch d-flex justify-content-center align-items-center my-3"
+            >
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="statusSwitch"
+                checked
+              />
+              <label
+                class="form-check-label ms-2"
+                for="statusSwitch"
+                id="statusLabel"
+                >Available</label
+              >
+            </div>
+          </div>
+          <ul class="nav flex-column px-3">
+            <li class="nav-item mb-2">
+              <a class="nav-link active" href="#" id="myServicesLink"
+                >My Services</a
+              >
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link" href="#" id="myReviewsLink">My Reviews</a>
+            </li>
+            <li class="nav-item mb-2">
+              <a class="nav-link" href="#" id="myEarningsLink">My Earnings</a>
+            </li>
+            <li class="nav-item mb-2">
+              <button
+                class="btn btn-primary w-100"
+                data-bs-toggle="modal"
+                data-bs-target="#addServiceModal"
+              >
+                Add Service
+              </button>
+            </li>
+          </ul>
+        </nav>
+        <!-- Main Content -->
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-4 py-4">
+          <h2 id="dashboardTitle">My Services</h2>
+          <div id="dashboardContent">
+            <!-- Content will be loaded here -->
+            <ul class="list-group" id="serviceList">
+              <li class="list-group-item">Laundry - Home Cleaning</li>
+              <li class="list-group-item">Plumbing - Repairs</li>
+            </ul>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Add Service Modal -->
+    <div
+      class="modal fade"
+      id="addServiceModal"
+      tabindex="-1"
+      aria-labelledby="addServiceModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <form class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addServiceModalLabel">Add Service</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="serviceType" class="form-label"
+                >Type of Service</label
+              >
+              <select class="form-select" id="serviceType" required>
+                <option value="">Select type</option>
+                <option value="Laundry">Laundry</option>
+                <option value="Plumbing">Plumbing</option>
+                <option value="Electrician">Electrician</option>
+                <option value="Babysitting">Babysitting</option>
+                <option value="Mechanic">Mechanic</option>
+                <option value="Tutor">Tutor</option>
+                <option value="Doctor">Doctor</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="serviceCategory" class="form-label">Category</label>
+              <select class="form-select" id="serviceCategory" required>
+                <option value="">Select category</option>
+                <option value="Home Cleaning">Home Cleaning</option>
+                <option value="Repairs">Repairs</option>
+                <option value="Consultation">Consultation</option>
+                <option value="Child Care">Child Care</option>
+                <option value="Education">Education</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Add Service</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Chat Icon -->
+    <div class="chat-icon" id="chatIcon" title="Chat">
+      <i class="bi bi-chat-dots"></i>
+    </div>
+
+    <!-- Chat Modal with Chat List -->
+    <div
+      class="modal fade"
+      id="chatModal"
+      tabindex="-1"
+      aria-labelledby="chatModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="chatModalLabel">Chats</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body row">
+            <!-- Chat List -->
+            <div
+              class="col-12 col-md-4 border-end mb-3 mb-md-0"
+              style="max-height: 400px; overflow-y: auto"
+            >
+              <ul class="list-group" id="chatList">
+                <li
+                  class="list-group-item chat-list-item active"
+                  data-chat="chat1"
+                >
+                  <div><strong>Jane Doe</strong></div>
+                  <small>Hi, is your service available?</small>
+                </li>
+                <li class="list-group-item chat-list-item" data-chat="chat2">
+                  <div><strong>Mike Smith</strong></div>
+                  <small>Thank you for the quick response!</small>
+                </li>
+                <li class="list-group-item chat-list-item" data-chat="chat3">
+                  <div><strong>Sarah Lee</strong></div>
+                  <small>Can you come tomorrow?</small>
+                </li>
+              </ul>
+            </div>
+            <!-- Chat Window -->
+            <div class="col-12 col-md-8" id="chatWindow">
+              <div id="chat1" class="chat-conversation">
+                <div class="mb-2">
+                  <strong>Jane Doe:</strong> Hi, is your service available?
+                </div>
+                <div class="mb-2 text-end">
+                  <strong>You:</strong> Yes, I am available!
+                </div>
+              </div>
+              <div id="chat2" class="chat-conversation d-none">
+                <div class="mb-2">
+                  <strong>Mike Smith:</strong> Thank you for the quick response!
+                </div>
+                <div class="mb-2 text-end">
+                  <strong>You:</strong> You're welcome!
+                </div>
+              </div>
+              <div id="chat3" class="chat-conversation d-none">
+                <div class="mb-2">
+                  <strong>Sarah Lee:</strong> Can you come tomorrow?
+                </div>
+                <div class="mb-2 text-end">
+                  <strong>You:</strong> Yes, what time suits you?
+                </div>
+              </div>
+              <div class="mt-3">
+                <textarea
+                  class="form-control mb-2"
+                  rows="2"
+                  placeholder="Type your message..."
+                ></textarea>
+                <button class="btn btn-primary w-100">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/javascript/servicedash.js"></script>
+  </body>
+</html>
